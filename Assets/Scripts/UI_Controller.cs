@@ -19,7 +19,7 @@ public class UI_Controller : MonoBehaviour
    
     public void InstallUploadSlider(Vector3 position)
     {
-        UploadingSlider.transform.position = Camera.main.WorldToScreenPoint(position);
+        UploadingSlider.transform.position = Camera.main.WorldToScreenPoint(position + new Vector3(0, 2f, 0));
         UploadingSlider.gameObject.SetActive(true);
         UploadingSlider.value = 0;
     }

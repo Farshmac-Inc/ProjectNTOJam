@@ -61,9 +61,9 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision) => CollisionCar(collision);
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.TryGetComponent(out Country _country)) return;
-        _country.UnloadingFinish.AddListener(SetCargoMass);
-        SetUploadingState.AddListener(_country.UnloadingState);
+        if (!collision.TryGetComponent(out NeedStopObject needStopObject)) return;
+        if (collision.TryGetComponent(out Country country)) country.UnloadingFinish.AddListener(SetCargoMass);
+        SetUploadingState.AddListener(needStopObject.UnloadingState);
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
