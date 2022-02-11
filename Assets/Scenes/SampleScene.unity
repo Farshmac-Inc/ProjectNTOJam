@@ -2491,6 +2491,14 @@ PrefabInstance:
       value: Car
       objectReference: {fileID: 0}
     - target: {fileID: 3558872561267583350, guid: 9b041542337c788409b1321fa22a2993, type: 3}
+      propertyPath: textTimer
+      value: 
+      objectReference: {fileID: 1201439407}
+    - target: {fileID: 3558872561267583350, guid: 9b041542337c788409b1321fa22a2993, type: 3}
+      propertyPath: timerSecond
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3558872561267583350, guid: 9b041542337c788409b1321fa22a2993, type: 3}
       propertyPath: inputManager
       value: 
       objectReference: {fileID: 519420033}

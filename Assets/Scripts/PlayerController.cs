@@ -1,5 +1,7 @@
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -23,16 +25,40 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sprite carLow;
     [SerializeField] private Sprite carMiddle;
     [SerializeField] private Sprite carHard;
+
+    [SerializeField] private float timerMinute;
+    [SerializeField] private float timerSecond;
+    [SerializeField] private Text textTimer;
     
     private void Start()
     {
         if (inputManager == null) inputManager = FindObjectOfType<InputManager>();
         body = GetComponent<Rigidbody2D>();
         motor = MotorWheel.motor;
+        textTimer.text = timerMinute.ToString() + ':' + timerSecond.ToString();
     }
+
+    private void CounterTimer()
+    {
+        timerSecond -= Time.deltaTime;
+        if (timerSecond <= -1)
+        {
+            timerSecond = 59;
+            timerMinute -= 1;
+        }
+        textTimer.text = timerMinute.ToString() + ':' + Mathf.Round(timerSecond).ToString();
+    }
+
     private void Update()
     {
         lastVelosityVector = body.velocity;
+        if (timerMinute <= 0 && timerSecond <= 0)
+        {
+            Debug.LogError("Pashel NAXYI");
+            return;
+        }
+        CounterTimer();
+        
     }
     private void FixedUpdate()
     {
