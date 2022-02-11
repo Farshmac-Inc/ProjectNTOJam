@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         var positionOffset = Car.transform.position - lastCarPosition;
-        transform.position += new Vector3(positionOffset.x, 0, 0); 
+        transform.position += new Vector3(positionOffset.x, positionOffset.y, 0); 
         lastCarPosition = Car.transform.position;
     }
 }

@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float Speed = 1.0f;
     [SerializeField] private float DamageThreshold = 5.0f;
     [SerializeField] private float DamageCoef = 100;
-    [SerializeField] private WheelJoint2D MotorWheel;
+    [SerializeField] private WheelJoint2D MotorWheel1;
+    [SerializeField] private WheelJoint2D MotorWheel2;
 
     [SerializeField] private UnityEvent<string> SetSpeedometrValue;
     [SerializeField] private UnityEvent<bool> SetUploadingState;
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         if (inputManager == null) inputManager = FindObjectOfType<InputManager>();
         body = GetComponent<Rigidbody2D>();
-        motor = MotorWheel.motor;
+        motor = MotorWheel1.motor;
         textTimer.text = timerMinute.ToString() + ':' + timerSecond.ToString();
     }
 
@@ -63,8 +64,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         SetSpeedometrValue?.Invoke($"{ body.velocity} | body.mass");
-        motor.motorSpeed = Speed / body.mass * inputManager.inputVector;
-        MotorWheel.motor = motor;
+        motor.motorSpeed = Speed / body.mass * inputManager.inputVector*1000;
+        MotorWheel2.motor = MotorWheel1.motor = motor;
     }
 
     private void SetCargoMass(float value)

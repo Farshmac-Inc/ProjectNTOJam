@@ -167,7 +167,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  CoroutineTimer: 0.01
   UnloadingFinish:
     m_PersistentCalls:
       m_Calls: []
-  NeededCargoMass: 2
+  carModel: {fileID: 21300000, guid: a1ae8a6473ee09d428eca580d4ce33c0, type: 3}
+  NeededCargoMass: 1
