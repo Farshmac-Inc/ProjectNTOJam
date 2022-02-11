@@ -3,42 +3,39 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    public float Speed = 1.0f;
-    public float DamageThreshold = 5.0f;
-    public float DamageCoef = 100;
-    public UnityEngine.UI.Text speedometr;
-    public WheelJoint2D MotorWheel;
+    [SerializeField] private float Speed = 1.0f;
+    [SerializeField] private float DamageThreshold = 5.0f;
+    [SerializeField] private float DamageCoef = 100;
+    [SerializeField] private WheelJoint2D MotorWheel;
 
+    [SerializeField] private UnityEvent<string> SetSpeedometrValue;
+    [SerializeField] private UnityEvent<bool> SetUploadingState;
+
+    private bool onUnloading = false;
     private Rigidbody2D body;
     private JointMotor2D motor;
     private Vector2 lastVelosityVector = new Vector2();
 
-    private bool onUnloading = false;
-    private Country country;
+    private float MinMass = 0.5f;
 
-    public UnityEvent<string> SetSpeedometrValue;
 
     private void Start()
     {
         body = GetComponent<Rigidbody2D>();
         motor = MotorWheel.motor;
     }
-
     private void Update()
     {
         lastVelosityVector = body.velocity;
-        var a = body.mass += Input.GetAxis("Vertical") / 10;
-        body.mass = a < 0.1f ? 0.1f : a > 10 ? 10 : a;
-        SetSpeedometrValue?.Invoke(body.velocity.ToString() + " | " + body.mass);
+        SetSpeedometrValue?.Invoke($"{ body.velocity} | body.mass");
         motor.motorSpeed = Speed / body.mass * Input.GetAxis("Horizontal");
         MotorWheel.motor = motor;
     }
 
-
     private void SetCargoMass(float value)
     {
         var a = body.mass - value;
-        body.mass = a < 0.5f ? 0.5f : a;
+        body.mass = a < MinMass ? MinMass : a;
     }
     public void CollisionCar(Collision2D collision)
     {
@@ -53,31 +50,29 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        country = collision.GetComponent<Country>();
+        if (!collision.TryGetComponent(out Country _country)) return;
+        _country.UnloadingFinish.AddListener(SetCargoMass);
+        SetUploadingState.AddListener(_country.UnloadingState);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (country == null) country = collision.GetComponent<Country>();
-        else
+        if (onUnloading = false && Mathf.Abs(body.velocity.x) < 0.1f)
         {
-            if (onUnloading = false && Mathf.Abs(body.velocity.x) < 0.1f)
-            {
-                country.UploadingState(onUnloading, this);
-                onUnloading = true;
-            }
-            if (onUnloading = true && Mathf.Abs(body.velocity.x) >= 0.1f)
-            {
-                country.UploadingState(onUnloading, this);
-                onUnloading = false;
-            }
+            SetUploadingState?.Invoke(onUnloading);
+            onUnloading = true;
         }
+        if (onUnloading = true && Mathf.Abs(body.velocity.x) >= 0.1f)
+        {
+            SetUploadingState?.Invoke(onUnloading);
+            onUnloading = false;
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         onUnloading = false;
-        country.UploadingState(onUnloading, this);
-        country = null;
+        SetUploadingState?.Invoke(onUnloading);
     }
 }

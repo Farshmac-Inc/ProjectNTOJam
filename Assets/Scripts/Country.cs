@@ -4,48 +4,49 @@ using UnityEngine.Events;
 
 public class Country : MonoBehaviour
 {
-    public UnityEvent<int> UpdateUI;
-    public UnityEvent<Vector3> InstallSlider;
-    public UnityEvent RemoveSlider;
+    [SerializeField] private UnityEvent<int> UpdateUI;
+    [SerializeField] private UnityEvent<Vector3> InstallSlider;
+    [SerializeField] private UnityEvent RemoveSlider;
+
+    public UnityEvent<float> UnloadingFinish;
+    [SerializeField] private float NeededCargoMass = 2.0f;
 
     private float value = 100;
     private int defaultValue = 100;
+    private bool countryAccepted = false;
 
-    private PlayerController player;
     private Coroutine coroutine;
 
-    private bool CountryAccepted = false;
-
-    private void Start() { player = FindObjectOfType<PlayerController>(); }
-
-    public void UploadingState(bool onUploading, PlayerController player)
+    public void UnloadingState(bool onUploading)
     {
-        if (!CountryAccepted)
+        if (countryAccepted) return;
+        if (onUploading && coroutine == null)
         {
-            if (onUploading && coroutine == null)
-            {
-                InstallSlider?.Invoke(transform.position);
-                coroutine = StartCoroutine(UploadingCoroutine());
-            }
-            if (!onUploading & coroutine != null)
-            {
-                StopCoroutine(coroutine);
-                value = defaultValue;
-                RemoveSlider?.Invoke();
-            }
+            InstallSlider?.Invoke(transform.position);
+            coroutine = StartCoroutine(UploadingCoroutine());
+        }
+        if (!onUploading && coroutine != null)
+        {
+            value = defaultValue;
+            RemoveSlider?.Invoke();
+            StopCoroutine(coroutine);
         }
     }
 
     IEnumerator UploadingCoroutine()
     {
-        for(; value > 0; value--)
+        while (value > 0)
         {
             UpdateUI?.Invoke((int)(defaultValue - value));
             yield return new WaitForSeconds(0.1f);
+            value--;
         }
         RemoveSlider?.Invoke();
-        CountryAccepted = true;
-        StopCoroutine(coroutine);
+        UnloadingFinish?.Invoke(NeededCargoMass);
+        UnloadingFinish.RemoveAllListeners();
+
+        countryAccepted = true;
         GetComponent<Collider2D>().enabled = false;
+        StopCoroutine(coroutine);
     }
 }

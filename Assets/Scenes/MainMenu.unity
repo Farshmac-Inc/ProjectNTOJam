@@ -258,7 +258,9 @@ PlayableDirector:
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
-  m_SceneBindings: []
+  m_SceneBindings:
+  - key: {fileID: -7744095211592649067, guid: 4efdbb7ebdbaad640b65f66c4813f0cc, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - 0bfdba067bebd704aa87899ab3de7083: {fileID: 1248020841}
@@ -748,7 +750,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 12934cafc19683345be61954676721a6, type: 3}
-  m_Type: 2
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5742,7 +5744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1702710705
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5782,7 +5784,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -9155682430678498816, guid: 6af284868075c4b4fbfc1c7d372af8cb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6af284868075c4b4fbfc1c7d372af8cb, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
