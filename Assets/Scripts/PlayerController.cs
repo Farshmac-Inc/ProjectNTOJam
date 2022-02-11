@@ -20,7 +20,10 @@ public class PlayerController : MonoBehaviour
 
     private float MinMass = 0.5f;
 
-
+    [SerializeField] private Sprite carLow;
+    [SerializeField] private Sprite carMiddle;
+    [SerializeField] private Sprite carHard;
+    
     private void Start()
     {
         if (inputManager == null) inputManager = FindObjectOfType<InputManager>();
@@ -41,12 +44,18 @@ public class PlayerController : MonoBehaviour
     private void SetCargoMass(float value)
     {
         var a = body.mass - value;
-        body.mass = a < MinMass ? MinMass : a;
+        body.mass = a <= MinMass ? MinMass : a;
+        if (body.mass <= 2.5 && body.mass > 1)
+            GetComponent<SpriteRenderer>().sprite = carMiddle;
+        else if (body.mass <= 1)
+            GetComponent<SpriteRenderer>().sprite = carLow;
+        else if (body.mass >2.5)
+            GetComponent<SpriteRenderer>().sprite = carHard;
     }
     private void SetCargoMass(float value, Sprite carSprite)
     {
         var a = body.mass - value;
-        body.mass = a < MinMass ? MinMass : a;
+        body.mass = a <= MinMass ? MinMass : a;
         GetComponent<SpriteRenderer>().sprite = carSprite;
     }
     public void CollisionCar(Collision2D collision)
@@ -58,7 +67,18 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision) => CollisionCar(collision);
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        CollisionCar(collision);
+        if (collision.gameObject.layer == 11)
+        {
+            var isObstacle = collision.gameObject.TryGetComponent<ObstacleDamage>(out var obstacleCurrent);
+            float damage = isObstacle ? obstacleCurrent.GetDamage() : 0;
+            SetCargoMass(damage);
+        }   
+    }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.TryGetComponent(out NeedStopObject needStopObject)) return;
