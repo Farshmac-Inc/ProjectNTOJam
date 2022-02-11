@@ -84,4 +84,9 @@ public class PlayerController : MonoBehaviour
         onUnloading = false;
         SetUploadingState?.Invoke(onUnloading);
     }
+
+    public void Death()
+    {
+        Debug.Log("Opps Mazafaka");
+    }
 }
