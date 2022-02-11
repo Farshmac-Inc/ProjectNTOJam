@@ -8,7 +8,7 @@ public class Country : MonoBehaviour
     [SerializeField] private UnityEvent<Vector3> InstallSlider;
     [SerializeField] private UnityEvent RemoveSlider;
     public UnityEvent<float, Sprite> UnloadingFinish;
-
+    
     [SerializeField] private Sprite carModel;
 
     [SerializeField] private float NeededCargoMass = 2.0f;

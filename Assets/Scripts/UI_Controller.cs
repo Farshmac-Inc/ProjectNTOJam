@@ -7,7 +7,8 @@ public class UI_Controller : MonoBehaviour
 {
     [SerializeField] private Canvas Canvas;
     [SerializeField] private Slider UploadingSlider;
-    [SerializeField] private Text Speedometr; 
+    [SerializeField] private Text Speedometr;
+    [SerializeField] private Text InputText;
 
     private void Start()
     {
@@ -36,5 +37,10 @@ public class UI_Controller : MonoBehaviour
     public void SetSpeedValue (string value)
     {
         Speedometr.text = value;
+    }
+
+    public void SetTextValue(float value)
+    {
+        InputText.text = $"{value}";
     }
 }

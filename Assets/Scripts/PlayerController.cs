@@ -4,6 +4,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private InputManager inputManager;
     [SerializeField] private float Speed = 1.0f;
     [SerializeField] private float DamageThreshold = 5.0f;
     [SerializeField] private float DamageCoef = 100;
@@ -22,14 +23,18 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        if (inputManager == null) inputManager = FindObjectOfType<InputManager>();
         body = GetComponent<Rigidbody2D>();
         motor = MotorWheel.motor;
     }
     private void Update()
     {
         lastVelosityVector = body.velocity;
+    }
+    private void FixedUpdate()
+    {
         SetSpeedometrValue?.Invoke($"{ body.velocity} | body.mass");
-        motor.motorSpeed = Speed / body.mass * Input.GetAxis("Horizontal");
+        motor.motorSpeed = Speed / body.mass * inputManager.inputVector;
         MotorWheel.motor = motor;
     }
 
@@ -54,14 +59,12 @@ public class PlayerController : MonoBehaviour
 
 
     private void OnCollisionEnter2D(Collision2D collision) => CollisionCar(collision);
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.TryGetComponent(out Country _country)) return;
         _country.UnloadingFinish.AddListener(SetCargoMass);
         SetUploadingState.AddListener(_country.UnloadingState);
     }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (onUnloading == false && Mathf.Abs(body.velocity.x) < 0.1f)
@@ -76,7 +79,6 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         onUnloading = false;
