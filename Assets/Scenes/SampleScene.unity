@@ -160,7 +160,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.06, y: 2.42}
+    oldSize: {x: 4.92, y: 2.04}
     newSize: {x: 5.06, y: 2.42}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -230,7 +230,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: 21300000, guid: df0bd9a94fe3ebc4e8d21b371fb7e4d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6a579cbac58d23a47aed1322daf5d9c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -274,13 +274,13 @@ MonoBehaviour:
   SetSpeedometrValue:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 519420028}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 519420030}
+        m_TargetAssemblyTypeName: UI_Controller, Assembly-CSharp
+        m_MethodName: SetSpeedValue
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -503,7 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Canvas: {fileID: 1779885110}
-  UploadingSliderObj: {fileID: 1090421314}
+  UploadingSlider: {fileID: 1090421316}
   Speedometr: {fileID: 1201439407}
 --- !u!20 &519420031
 Camera:
@@ -895,7 +895,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030063071}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.71, y: 1.02, z: 0}
+  m_LocalPosition: {x: -8.74, y: 0.9, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 12.876556}
   m_Children: []
   m_Father: {fileID: 0}
@@ -946,7 +946,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.86, y: 0.81}
+  m_Size: {x: 0.67, y: 0.65}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -983,7 +983,7 @@ WheelJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -1.53, y: -0.72}
+  m_ConnectedAnchor: {x: -1.585756, y: -0.8961243}
   m_Suspension:
     m_DampingRatio: 0.7
     m_Frequency: 100
@@ -1205,7 +1205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030518, y: 620}
+  m_AnchoredPosition: {x: -0.000030517, y: 439}
   m_SizeDelta: {x: 677.9839, y: 111.9906}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1354706027
@@ -1805,7 +1805,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763483089}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.7000003, y: 1.02, z: 0}
+  m_LocalPosition: {x: -6.72, y: 0.9, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.67}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1856,7 +1856,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.86, y: 0.81}
+  m_Size: {x: 0.67, y: 0.65}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1914,7 +1914,7 @@ WheelJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 1.51, y: -0.72}
+  m_ConnectedAnchor: {x: 1.4713997, y: -0.89229554}
   m_Suspension:
     m_DampingRatio: 0.1
     m_Frequency: 100
@@ -2334,6 +2334,18 @@ PrefabInstance:
     - target: {fileID: 8101923325720762748, guid: 19001ff23a02f474cb8ee4fa3e49f637, type: 3}
       propertyPath: m_Name
       value: Country
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101923325720762748, guid: 19001ff23a02f474cb8ee4fa3e49f637, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101923325720762752, guid: 19001ff23a02f474cb8ee4fa3e49f637, type: 3}
+      propertyPath: carModel
+      value: 
+      objectReference: {fileID: 21300000, guid: a1ae8a6473ee09d428eca580d4ce33c0, type: 3}
+    - target: {fileID: 8101923325720762752, guid: 19001ff23a02f474cb8ee4fa3e49f637, type: 3}
+      propertyPath: CoroutineTimer
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8101923325720762752, guid: 19001ff23a02f474cb8ee4fa3e49f637, type: 3}
       propertyPath: UpdateUI.m_PersistentCalls.m_Calls.Array.data[0].m_Target

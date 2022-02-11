@@ -7,9 +7,12 @@ public class Country : MonoBehaviour
     [SerializeField] private UnityEvent<int> UpdateUI;
     [SerializeField] private UnityEvent<Vector3> InstallSlider;
     [SerializeField] private UnityEvent RemoveSlider;
+    public UnityEvent<float, Sprite> UnloadingFinish;
 
-    public UnityEvent<float> UnloadingFinish;
+    [SerializeField] private Sprite carModel;
+
     [SerializeField] private float NeededCargoMass = 2.0f;
+    [Range(0.001f, 1f)] [SerializeField] private float CoroutineTimer = 0.1f;
 
     private float value = 100;
     private int defaultValue = 100;
@@ -30,6 +33,7 @@ public class Country : MonoBehaviour
             value = defaultValue;
             RemoveSlider?.Invoke();
             StopCoroutine(coroutine);
+            coroutine = null;
         }
     }
 
@@ -38,11 +42,11 @@ public class Country : MonoBehaviour
         while (value > 0)
         {
             UpdateUI?.Invoke((int)(defaultValue - value));
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(CoroutineTimer);
             value--;
         }
         RemoveSlider?.Invoke();
-        UnloadingFinish?.Invoke(NeededCargoMass);
+        UnloadingFinish?.Invoke(NeededCargoMass, carModel);
         UnloadingFinish.RemoveAllListeners();
 
         countryAccepted = true;

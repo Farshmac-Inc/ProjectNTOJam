@@ -5,25 +5,27 @@ using UnityEngine.UI;
 
 public class UI_Controller : MonoBehaviour
 {
-    public Canvas Canvas;
-    public GameObject UploadingSliderObj;
-    public Text Speedometr;
+    [SerializeField] private Canvas Canvas;
+    [SerializeField] private Slider UploadingSlider;
+    [SerializeField] private Text Speedometr; 
 
-    private Slider UploadingSlider;
     private void Start()
     {
-        UploadingSlider = UploadingSliderObj.GetComponent<Slider>();
+        if (Canvas == null) Canvas = FindObjectOfType<Canvas>();
+        if (UploadingSlider == null) UploadingSlider = Canvas.GetComponentInChildren<Slider>();
+        if (Speedometr == null) Speedometr = Canvas.GetComponentInChildren<Text>();
     }
+   
     public void InstallUploadSlider(Vector3 position)
     {
-        UploadingSliderObj.transform.position = Camera.main.WorldToScreenPoint(position);
-        UploadingSliderObj.SetActive(true);
+        UploadingSlider.transform.position = Camera.main.WorldToScreenPoint(position);
+        UploadingSlider.gameObject.SetActive(true);
         UploadingSlider.value = 0;
     }
 
     public void RemoveUploadSlider()
     {
-        UploadingSliderObj.SetActive(false);
+        UploadingSlider.gameObject.SetActive(false);
     }
 
     public void SetValueUploadSlider (int value)

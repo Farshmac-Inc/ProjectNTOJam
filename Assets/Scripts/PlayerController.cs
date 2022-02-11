@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float Speed = 1.0f;
@@ -37,6 +38,12 @@ public class PlayerController : MonoBehaviour
         var a = body.mass - value;
         body.mass = a < MinMass ? MinMass : a;
     }
+    private void SetCargoMass(float value, Sprite carSprite)
+    {
+        var a = body.mass - value;
+        body.mass = a < MinMass ? MinMass : a;
+        GetComponent<SpriteRenderer>().sprite = carSprite;
+    }
     public void CollisionCar(Collision2D collision)
     {
         if (lastVelosityVector.y < -DamageThreshold)
@@ -57,15 +64,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (onUnloading = false && Mathf.Abs(body.velocity.x) < 0.1f)
+        if (onUnloading == false && Mathf.Abs(body.velocity.x) < 0.1f)
         {
-            SetUploadingState?.Invoke(onUnloading);
             onUnloading = true;
-        }
-        if (onUnloading = true && Mathf.Abs(body.velocity.x) >= 0.1f)
-        {
             SetUploadingState?.Invoke(onUnloading);
+        }
+        if (onUnloading == true && Mathf.Abs(body.velocity.x) >= 0.1f)
+        {
             onUnloading = false;
+            SetUploadingState?.Invoke(onUnloading);
         }
 
     }
