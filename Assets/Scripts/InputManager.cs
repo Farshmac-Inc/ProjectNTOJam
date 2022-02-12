@@ -7,7 +7,6 @@ public class InputManager : MonoBehaviour
     private int ButtonID = 0;
 
     [SerializeField] private float Sensetivity = 10.0f;
-    [SerializeField] private UnityEvent<float> SetInputVector;
 
     private void FixedUpdate()
     {
@@ -16,13 +15,13 @@ public class InputManager : MonoBehaviour
             case -1:
                 {
                     inputVector -= Sensetivity;
-                    inputVector = Mathf.Clamp(inputVector, -1, 1);
+                    inputVector = Mathf.Clamp(inputVector, -1, 2);
                     break;
                 }
             case 1:
                 {
                     inputVector += Sensetivity;
-                    inputVector = Mathf.Clamp(inputVector, -1, 1);
+                    inputVector = Mathf.Clamp(inputVector, -1, 2);
                     break;
                 }
             default:
@@ -31,7 +30,6 @@ public class InputManager : MonoBehaviour
                     break;
                 }
         }
-        SetInputVector?.Invoke(inputVector);
     }
 
     public void ButtonClick(int buttonID)

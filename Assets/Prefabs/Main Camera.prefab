@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7859984978281208952}
   - component: {fileID: 7859984978281208967}
   - component: {fileID: 7859984978281208964}
+  - component: {fileID: 2454834238523228072}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -101,7 +102,10 @@ MonoBehaviour:
   Canvas: {fileID: 0}
   UploadingSlider: {fileID: 0}
   Speedometr: {fileID: 0}
-  InputText: {fileID: 0}
+  Panel: {fileID: 0}
+  ResultText: {fileID: 0}
+  ScoreText: {fileID: 0}
+  EndBGSprites: []
 --- !u!114 &7859984978281208967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,21 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sensetivity: 10
-  SetInputVector:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7859984978281208952}
-        m_TargetAssemblyTypeName: UI_Controller, Assembly-CSharp
-        m_MethodName: SetTextValue
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &7859984978281208964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,3 +132,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Car: {fileID: 0}
+--- !u!114 &2454834238523228072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7859984978281208954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 680050c43d8b8e947a62c588c7942c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

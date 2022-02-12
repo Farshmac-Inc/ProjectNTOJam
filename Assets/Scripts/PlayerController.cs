@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private UnityEvent<string> SetSpeedometrValue;
     [SerializeField] private UnityEvent<bool> SetUploadingState;
+    [SerializeField] private UnityEvent<int> CrashCar;
 
     private bool onUnloading = false;
     private Rigidbody2D body;
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float timerMinute;
     [SerializeField] private float timerSecond;
     [SerializeField] private Text textTimer;
+
+    private int Score = 0;
     
     private void Start()
     {
@@ -55,7 +58,7 @@ public class PlayerController : MonoBehaviour
         lastVelosityVector = body.velocity;
         if (timerMinute <= 0 && timerSecond <= 0)
         {
-            Debug.LogError("Pashel NAXYI");
+            CrashCar?.Invoke(2);
             return;
         }
         CounterTimer();
@@ -134,6 +137,6 @@ public class PlayerController : MonoBehaviour
 
     public void Death()
     {
-        Debug.Log("Opps Mazafaka");
+        CrashCar?.Invoke(1);
     }
 }
